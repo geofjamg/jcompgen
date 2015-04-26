@@ -1,0 +1,4 @@
+#parse("/vm/java/options.sh.vm")
+#completionFunction($toolName $options)
+
+complete -F _$toolName $toolName
