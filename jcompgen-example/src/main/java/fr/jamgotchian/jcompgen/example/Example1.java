@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package fr.jamgotchian.jcompgen.commonscli;
+package fr.jamgotchian.jcompgen.example;
 
 import org.apache.commons.cli.*;
 

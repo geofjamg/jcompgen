@@ -20,6 +20,8 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.tools.generic.EscapeTool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -33,6 +35,8 @@ import java.util.List;
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at gmail.com>
  */
 public class BashCompletionGenerator {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(BashCompletionGenerator.class);
 
     private static final Charset CHARSET = StandardCharsets.UTF_8;
 
@@ -62,7 +66,9 @@ public class BashCompletionGenerator {
     }
 
     public void generateCommands(String toolName, List<Command> commands, Path dir) throws IOException {
-        try (Writer writer = Files.newBufferedWriter(dir.resolve(toolName), CHARSET)) {
+        Path file = dir.resolve(toolName);
+        LOGGER.info("Generating {}", file);
+        try (Writer writer = Files.newBufferedWriter(file, CHARSET)) {
             generateCommands(toolName, commands, writer);
         }
     }
@@ -75,7 +81,9 @@ public class BashCompletionGenerator {
     }
 
     public void generateOptions(String toolName, List<Option> options, Path dir) throws IOException {
-        try (Writer writer = Files.newBufferedWriter(dir.resolve(toolName), CHARSET)) {
+        Path file = dir.resolve(toolName);
+        LOGGER.info("Generating {}", file);
+        try (Writer writer = Files.newBufferedWriter(file, CHARSET)) {
             generateOptions(toolName, options, writer);
         }
     }

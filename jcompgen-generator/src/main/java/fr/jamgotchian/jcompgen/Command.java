@@ -27,10 +27,15 @@ public class Command {
 
     private final String name;
 
-    private final List<Option> options = new ArrayList<>();
+    private final List<Option> options;
+
+    public Command(String name, List<Option> options) {
+        this.name = Objects.requireNonNull(name);
+        this.options = Objects.requireNonNull(options);
+    }
 
     public Command(String name) {
-        this.name = Objects.requireNonNull(name);
+        this(name, new ArrayList<>());
     }
 
     public String getName() {

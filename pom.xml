@@ -52,6 +52,7 @@
 
     <modules>
         <module>jcompgen-generator</module>
+        <module>jcompgen-example</module>
     </modules>
 
     <build>

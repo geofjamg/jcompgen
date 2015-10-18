@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package fr.jamgotchian.jcompgen;
+package fr.jamgotchian.jcompgen.example;
 
-import fr.jamgotchian.jcompgen.commonscli.Example1;
-import org.apache.commons.cli.Options;
+import fr.jamgotchian.jcompgen.BashCompletionGenerator;
+import fr.jamgotchian.jcompgen.Command;
+import fr.jamgotchian.jcompgen.OptionType;
+import fr.jamgotchian.jcompgen.OptionTypeMapper;
+import fr.jamgotchian.jcompgen.commonscli.CommonsCliUtil;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Geoffroy Jamgotchian <geoffroy.jamgotchian at gmail.com>
@@ -31,16 +32,7 @@ import java.util.Map;
 public class Test {
 
     public static void main(String[] args) throws IOException {
-        List<Command> commands = new ArrayList<>();
-        for (Map.Entry<String, Options> entry : Example1.OPTIONS_PER_COMMAND.entrySet()) {
-            Command command = new Command(entry.getKey());
-            for (Object o : entry.getValue().getOptions()) {
-                org.apache.commons.cli.Option o2 = (org.apache.commons.cli.Option) o;
-                Option option = new Option(o2.getLongOpt(), o2.getArgName(), null);
-                command.addOption(option);
-            }
-            commands.add(command);
-        }
+        List<Command> commands = CommonsCliUtil.toCommands(Example1.OPTIONS_PER_COMMAND);
         OptionTypeMapper mapper = new OptionTypeMapper();
         mapper.add(new OptionTypeMapper.Key("file.*", OptionTypeMapper.Key.Type.OPTION_NAME), OptionType.File.INSTANCE);
         mapper.add(new OptionTypeMapper.Key("dir.*", OptionTypeMapper.Key.Type.OPTION_NAME), OptionType.Directory.INSTANCE);
